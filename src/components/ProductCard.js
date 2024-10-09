@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const ProductCard = ({ name, price, img }) => {
+const ProductCard = ({ name, price, img, onAddToCart }) => {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
@@ -21,8 +21,7 @@ const ProductCard = ({ name, price, img }) => {
             ...(isHovered ? styles.imageHover : {}),
           }}
         />
-        <div
-          style={{
+        <div style={{
             ...styles.overlay,
             ...(isHovered ? styles.overlayHover : {}),
           }}
@@ -31,7 +30,9 @@ const ProductCard = ({ name, price, img }) => {
           <p>Precio: ${price}</p>
         </div>
       </div>
-      <button style={styles.button}>Agregar al carrito</button>
+      <button style={styles.button} onClick={onAddToCart}>
+        Agregar al carrito
+      </button>
     </div>
   );
 };
@@ -41,28 +42,28 @@ const styles = {
     position: 'relative',
     border: '1px solid #ccc',
     borderRadius: '8px',
-    padding: '0', // Eliminamos padding para maximizar el espacio de la imagen
+    padding: '0',
     textAlign: 'center',
-    width: '250px',  // Tamaño de la tarjeta
-    height: '350px',  // Altura fija para la tarjeta
+    width: '250px',
+    height: '350px',
     backgroundColor: '#f9f9f9',
     overflow: 'hidden',
     transition: 'transform 0.3s ease',
-    margin: '20px', // Espacio de 20px entre tarjetas
+    margin: '20px',
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'space-between', // Espacia elementos
+    justifyContent: 'space-between',
   },
   imageContainer: {
     position: 'relative',
     overflow: 'hidden',
     borderRadius: '8px',
-    flexGrow: 1, // Permite que el contenedor de imagen ocupe espacio
+    flexGrow: 1,
   },
   image: {
     width: '100%',
     height: '100%',
-    objectFit: 'cover', // Asegura que la imagen cubra el contenedor
+    objectFit: 'cover',
     transition: 'transform 0.3s ease',
   },
   overlay: {
@@ -78,20 +79,20 @@ const styles = {
     transition: 'opacity 0.3s ease',
   },
   button: {
-    backgroundColor: '#6f42c1', // Color violeta
+    backgroundColor: '#6f42c1',
     color: '#fff',
     padding: '10px',
     border: 'none',
     borderRadius: '5px',
     cursor: 'pointer',
     marginTop: '10px',
-    width: '100%', // Botón ocupa el ancho completo
+    width: '100%',
   },
   cardHover: {
-    transform: 'scale(1.05)', // Efecto de escala al pasar el mouse
+    transform: 'scale(1.05)',
   },
   imageHover: {
-    transform: 'scale(1.1)', // Aumento de escala en la imagen
+    transform: 'scale(1.1)',
   },
   overlayHover: {
     opacity: 1,

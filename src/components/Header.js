@@ -3,35 +3,49 @@ import headerImage from '../img/header.jpg';
 
 const Header = () => {
   return (
-    <header style={styles.header}>
-      <img src={headerImage} alt="Header" style={styles.image} />
-      <div style={styles.welcome}>
-        <h1>Bienvenidos a Hajime</h1>
-        <p>Página dedicada al anime de culto JoJo's Bizarre Adventure</p>
+    <div style={styles.header}>
+      <div style={styles.overlay}>
+        <h1 style={styles.title}>Hajime</h1>
+        <p style={styles.subtitle}>Página dedicada al anime de culto JoJo's Bizarre Adventure</p>
       </div>
-    </header>
+    </div>
   );
 };
 
 const styles = {
   header: {
-    textAlign: 'center',
     position: 'relative',
-    height: '500px', // Ajusta la altura del header según tu preferencia
-    overflow: 'hidden', // Evita que se vea más allá de la altura definida
-  },
-  image: {
-    width: '100%',
-    height: '100%', // Hace que la imagen ocupe todo el contenedor
-    objectFit: 'cover', // Asegura que la imagen cubra el área sin recortarse
-  },
-  welcome: {
-    position: 'absolute',
-    top: '30%', // Ajusta la posición vertical según sea necesario
-    left: '50%',
-    transform: 'translate(-50%, -50%)', // Centra el texto
+    height: '400px',
+    backgroundImage: `url(${headerImage})`,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
     color: '#fff',
-    textShadow: '2px 2px 4px rgba(0, 0, 0, 0.7)', // Sombra para que el texto resalte
+    overflow: 'hidden',
+  },
+  overlay: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'column',
+    textAlign: 'center',
+  },
+  title: {
+    fontSize: '4rem',  // Aumentar el tamaño del título
+    margin: '0',
+    textShadow: '2px 2px 4px rgba(0, 0, 0, 0.8)',
+  },
+  subtitle: {
+    fontSize: '1.5rem',
+    margin: '20px 0 0 0', // Espacio superior aumentado entre título y subtítulo
+    textShadow: '2px 2px 4px rgba(0, 0, 0, 0.8)',
   },
 };
 

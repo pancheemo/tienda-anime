@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import ProductCard from './ProductCard'; // Asegúrate de que ProductCard esté en la misma carpeta
 
-const ItemListContainer = ({ greeting }) => {
+const ItemListContainer = ({ greeting, onAddToCart }) => {
+  // Estado para el mensaje de éxito
+  const [successMessage, setSuccessMessage] = useState('');
+
   const allProducts = [
     { name: "Camiseta Naruto", price: 25, img: "./img/naruto.jpg" },
     { name: "Camiseta One Piece", price: 30, img: "./img/onepiece.jpg" },
@@ -20,16 +23,26 @@ const ItemListContainer = ({ greeting }) => {
     { name: "Camiseta Black Clover", price: 29, img: "./img/blackclover.jpg" },
     { name: "Sudadera Sword Art Online", price: 49, img: "./img/sao.jpg" },
   ];
-
-  const [visibleProducts, setVisibleProducts] = useState(8); // Número inicial de productos visibles
+  
+  const [visibleProducts, setVisibleProducts] = useState(8);
 
   const loadMore = () => {
-    setVisibleProducts(prev => Math.min(prev + 4, allProducts.length)); // Aumentar el número de productos visibles
+    setVisibleProducts(prev => Math.min(prev + 4, allProducts.length));
+  };
+
+  // Maneja la adición al carrito y muestra el mensaje
+  const handleAddToCart = (product) => {
+    onAddToCart(product); // Llama a la función de agregar al carrito
+    setSuccessMessage(`"${product.name}" fue añadido exitosamente al carrito!`); // Muestra el mensaje
+    setTimeout(() => {
+      setSuccessMessage(''); // Oculta el mensaje después de 3 segundos
+    }, 3000);
   };
 
   return (
     <div style={styles.container}>
       <h2>{greeting}</h2>
+      {successMessage && <div style={styles.successMessage}>{successMessage}</div>} {/* Mensaje de éxito */}
       <div style={styles.productList}>
         {allProducts.slice(0, visibleProducts).map((product, index) => (
           <ProductCard
@@ -37,6 +50,7 @@ const ItemListContainer = ({ greeting }) => {
             name={product.name}
             price={product.price}
             img={product.img}
+            onAddToCart={() => handleAddToCart(product)} // Llama a la nueva función para agregar al carrito
           />
         ))}
       </div>
@@ -49,6 +63,7 @@ const ItemListContainer = ({ greeting }) => {
   );
 };
 
+// Estilos
 const styles = {
   container: {
     textAlign: 'center',
@@ -68,6 +83,14 @@ const styles = {
     border: 'none',
     borderRadius: '5px',
     cursor: 'pointer',
+  },
+  successMessage: {
+    margin: '10px 0',
+    padding: '10px',
+    backgroundColor: '#d4edda', // Color de fondo verde claro
+    color: '#155724', // Color de texto verde
+    border: '1px solid #c3e6cb', // Borde verde
+    borderRadius: '5px',
   },
 };
 

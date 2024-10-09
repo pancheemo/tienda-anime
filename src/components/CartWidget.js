@@ -1,20 +1,19 @@
 import React from 'react';
 
-const CartWidget = () => {
+const CartWidget = ({ itemCount }) => {
   return (
-    <div style={styles.cart}>
-      🛒 3
+    <div style={styles.cartWidget}>
+      🛒 {itemCount > 0 && <span>{itemCount}</span>}
     </div>
   );
 };
 
 const styles = {
-  cart: {
-    backgroundColor: '#f39c12',
-    borderRadius: '50%',
-    padding: '10px',
+  cartWidget: {
+    position: 'relative',
     cursor: 'pointer',
-  }
+    fontSize: '20px',
+  },
 };
 
 export default CartWidget;

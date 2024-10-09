@@ -1,50 +1,37 @@
 import React from 'react';
 import CartWidget from './CartWidget';
 
-const NavBar = () => {
+const NavBar = ({ onToggleCart }) => {
   return (
     <nav style={styles.nav}>
-      <h1 style={styles.title}>Tienda Anime</h1>
+      <h1>Tienda Anime</h1>
       <ul style={styles.menu}>
-        <li style={styles.menuItem}><a href="/">Inicio</a></li>
-        <li style={styles.menuItem}><a href="/productos">Productos</a></li>
-        <li style={styles.menuItem}><a href="/contacto">Contacto</a></li>
+        <li><a href="/">Inicio</a></li>
+        <li><a href="/productos">Productos</a></li>
+        <li><a href="/contacto">Contacto</a></li>
       </ul>
-      <CartWidget />
+      <div onClick={onToggleCart} style={{ cursor: 'pointer' }}>
+        <CartWidget />
+      </div>
     </nav>
   );
 };
 
 const styles = {
   nav: {
-    backgroundColor: '#6f42c1', // Color violeta
-    padding: '15px', // Espacio alrededor
+    backgroundColor: '#6f42c1', // Asegúrate de que el color coincida
+    padding: '10px',
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
     color: '#fff',
-    boxShadow: '0 2px 10px rgba(0, 0, 0, 0.1)', // Sombra sutil
-  },
-  title: {
-    fontSize: '24px',
-    fontWeight: 'bold',
   },
   menu: {
     display: 'flex',
     listStyle: 'none',
-    padding: 0, // Eliminar padding por defecto
-    margin: 0, // Eliminar margen por defecto
   },
   menuItem: {
-    marginLeft: '20px', // Espacio entre los elementos del menú
-  },
-  link: {
-    color: '#fff', // Color de los enlaces
-    textDecoration: 'none', // Sin subrayado
-    transition: 'color 0.3s', // Transición para el cambio de color
-  },
-  linkHover: {
-    color: '#f8d7da', // Color al pasar el mouse (puedes ajustarlo)
+    marginLeft: '15px',
   },
 };
 
