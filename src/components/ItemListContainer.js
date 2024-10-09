@@ -1,48 +1,36 @@
 import React, { useState } from 'react';
-import ProductCard from './ProductCard'; // Asegúrate de que ProductCard esté en la misma carpeta
+import ProductCard from './ProductCard';
 
 const ItemListContainer = ({ greeting, onAddToCart }) => {
-  // Estado para el mensaje de éxito
-  const [successMessage, setSuccessMessage] = useState('');
-
+  // Lista de productos relacionados a JoJo's Bizarre Adventure
   const allProducts = [
-    { name: "Camiseta Naruto", price: 25, img: "./img/naruto.jpg" },
-    { name: "Camiseta One Piece", price: 30, img: "./img/onepiece.jpg" },
-    { name: "Sudadera Attack on Titan", price: 50, img: "./img/aot.jpg" },
-    { name: "Camiseta Dragon Ball", price: 28, img: "./img/dragonball.jpg" },
-    { name: "Sudadera My Hero Academia", price: 45, img: "./img/mha.jpg" },
-    { name: "Camiseta Tokyo Ghoul", price: 22, img: "./img/tokyoghoul.jpg" },
-    { name: "Camiseta Death Note", price: 20, img: "./img/deathnote.jpg" },
-    { name: "Sudadera Demon Slayer", price: 48, img: "./img/demonslayer.jpg" },
-    { name: "Camiseta Fairy Tail", price: 25, img: "./img/fairytail.jpg" },
-    { name: "Sudadera Bleach", price: 50, img: "./img/bleach.jpg" },
-    { name: "Camiseta Hunter x Hunter", price: 27, img: "./img/hxh.jpg" },
-    { name: "Camiseta Sailor Moon", price: 24, img: "./img/sailormoon.jpg" },
-    { name: "Sudadera Fullmetal Alchemist", price: 47, img: "./img/fullmetal.jpg" },
-    { name: "Camiseta JoJo's Bizarre Adventure", price: 26, img: "./img/jojo.jpg" },
-    { name: "Camiseta Black Clover", price: 29, img: "./img/blackclover.jpg" },
-    { name: "Sudadera Sword Art Online", price: 49, img: "./img/sao.jpg" },
+    { name: "Manga de JoJo's Bizarre Adventure: Phantom Blood", price: 12, img: "./img/jojo_phantom_blood.jpg" },
+    { name: "Manga de JoJo's Bizarre Adventure: Battle Tendency", price: 12, img: "./img/jojo_battle_tendency.jpg" },
+    { name: "Manga de JoJo's Bizarre Adventure: Stardust Crusaders", price: 12, img: "./img/jojo_stardust_crusaders.jpg" },
+    { name: "Manga de JoJo's Bizarre Adventure: Diamond is Unbreakable", price: 12, img: "./img/jojo_diamond_unbreakable.jpg" },
+    { name: "Manga de JoJo's Bizarre Adventure: Golden Wind", price: 12, img: "./img/jojo_golden_wind.jpg" },
+    { name: "Manga de JoJo's Bizarre Adventure: Stone Ocean", price: 12, img: "./img/jojo_stone_ocean.jpg" },
+    { name: "Camiseta de JoJo's Bizarre Adventure: Jotaro Kujo", price: 25, img: "./img/jojo_jotaro_shirt.jpg" },
+    { name: "Camiseta de JoJo's Bizarre Adventure: Dio Brando", price: 25, img: "./img/jojo_dio_shirt.jpg" },
+    { name: "Peluche de JoJo's Bizarre Adventure: Jotaro Kujo", price: 15, img: "./img/jojo_jotaro_plush.jpg" },
+    { name: "Peluche de JoJo's Bizarre Adventure: Dio Brando", price: 15, img: "./img/jojo_dio_plush.jpg" },
+    { name: "Funko Pop de JoJo's Bizarre Adventure: Jotaro Kujo", price: 20, img: "./img/jojo_jotaro_funkopop.jpg" },
+    { name: "Funko Pop de JoJo's Bizarre Adventure: Dio Brando", price: 20, img: "./img/jojo_dio_funkopop.jpg" },
+    { name: "Poster de JoJo's Bizarre Adventure", price: 10, img: "./img/jojo_poster.jpg" },
+    { name: "Sudadera de JoJo's Bizarre Adventure", price: 50, img: "./img/jojo_sweater.jpg" },
+    { name: "Taza de JoJo's Bizarre Adventure", price: 15, img: "./img/jojo_mug.jpg" },
+    { name: "Manga de JoJo's Bizarre Adventure: Steel Ball Run", price: 12, img: "./img/jojo_steel_ball_run.jpg" },
   ];
-  
+
   const [visibleProducts, setVisibleProducts] = useState(8);
 
   const loadMore = () => {
     setVisibleProducts(prev => Math.min(prev + 4, allProducts.length));
   };
 
-  // Maneja la adición al carrito y muestra el mensaje
-  const handleAddToCart = (product) => {
-    onAddToCart(product); // Llama a la función de agregar al carrito
-    setSuccessMessage(`"${product.name}" fue añadido exitosamente al carrito!`); // Muestra el mensaje
-    setTimeout(() => {
-      setSuccessMessage(''); // Oculta el mensaje después de 3 segundos
-    }, 3000);
-  };
-
   return (
     <div style={styles.container}>
       <h2>{greeting}</h2>
-      {successMessage && <div style={styles.successMessage}>{successMessage}</div>} {/* Mensaje de éxito */}
       <div style={styles.productList}>
         {allProducts.slice(0, visibleProducts).map((product, index) => (
           <ProductCard
@@ -50,7 +38,7 @@ const ItemListContainer = ({ greeting, onAddToCart }) => {
             name={product.name}
             price={product.price}
             img={product.img}
-            onAddToCart={() => handleAddToCart(product)} // Llama a la nueva función para agregar al carrito
+            onAddToCart={() => onAddToCart(product)} // Llama a la función para agregar al carrito
           />
         ))}
       </div>
@@ -83,14 +71,6 @@ const styles = {
     border: 'none',
     borderRadius: '5px',
     cursor: 'pointer',
-  },
-  successMessage: {
-    margin: '10px 0',
-    padding: '10px',
-    backgroundColor: '#d4edda', // Color de fondo verde claro
-    color: '#155724', // Color de texto verde
-    border: '1px solid #c3e6cb', // Borde verde
-    borderRadius: '5px',
   },
 };
 

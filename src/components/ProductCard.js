@@ -2,6 +2,15 @@ import React, { useState } from 'react';
 
 const ProductCard = ({ name, price, img, onAddToCart }) => {
   const [isHovered, setIsHovered] = useState(false);
+  const [successMessage, setSuccessMessage] = useState('');
+
+  const handleAddToCart = () => {
+    onAddToCart();
+    setSuccessMessage('¡Añadido con éxito!');
+    setTimeout(() => {
+      setSuccessMessage(''); // Ocultar el mensaje después de 3 segundos
+    }, 3000);
+  };
 
   return (
     <div
@@ -21,17 +30,14 @@ const ProductCard = ({ name, price, img, onAddToCart }) => {
             ...(isHovered ? styles.imageHover : {}),
           }}
         />
-        <div style={{
-            ...styles.overlay,
-            ...(isHovered ? styles.overlayHover : {}),
-          }}
-        >
+        <div style={styles.overlay}>
           <h3>{name}</h3>
           <p>Precio: ${price}</p>
         </div>
       </div>
-      <button style={styles.button} onClick={onAddToCart}>
+      <button style={styles.button} onClick={handleAddToCart}>
         Agregar al carrito
+        {successMessage && <div style={styles.successMessage}>{successMessage}</div>} {/* Mensaje de éxito */}
       </button>
     </div>
   );
@@ -87,6 +93,16 @@ const styles = {
     cursor: 'pointer',
     marginTop: '10px',
     width: '100%',
+    position: 'relative',
+  },
+  successMessage: {
+    position: 'absolute',
+    top: '-20px', // Posición sobre el botón
+    left: '50%',
+    transform: 'translateX(-50%)',
+    fontSize: '12px',
+    color: '#28a745', // Color verde
+    opacity: 0.8,
   },
   cardHover: {
     transform: 'scale(1.05)',
