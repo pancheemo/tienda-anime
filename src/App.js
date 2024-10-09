@@ -1,10 +1,14 @@
 import React from 'react';
 import NavBar from './components/NavBar';
+import Header from './components/Header'; // Asegúrate de importar el Header
 import ItemListContainer from './components/ItemListContainer';
 
 const App = () => {
   return (
     <div>
+      {/* Header con mensaje de bienvenida */}
+      <Header />
+
       {/* Barra de navegación */}
       <NavBar />
 
