@@ -4,22 +4,22 @@ import ProductCard from './ProductCard';
 const ItemListContainer = ({ greeting, onAddToCart }) => {
   // Lista de productos relacionados a JoJo's Bizarre Adventure
   const allProducts = [
-    { name: "Manga de JoJo's Bizarre Adventure: Phantom Blood", price: 12, img: "../img/jojo_phantom_blood.jpg" },
-    { name: "Manga de JoJo's Bizarre Adventure: Battle Tendency", price: 12, img: "../img/jojo_battle_tendency.jpg" },
-    { name: "Manga de JoJo's Bizarre Adventure: Stardust Crusaders", price: 12, img: "../img/jojo_stardust_crusaders.jpg" },
-    { name: "Manga de JoJo's Bizarre Adventure: Diamond is Unbreakable", price: 12, img: "../img/jojo_diamond_unbreakable.jpg" },
-    { name: "Manga de JoJo's Bizarre Adventure: Steel Ball Run", price: 12, img: "../img/jojo_steel_ball_run.jpg" },
-    { name: "Manga de JoJo's Bizarre Adventure: Golden Wind", price: 12, img: "../img/jojo_golden_wind.jpg" },
-    { name: "Manga de JoJo's Bizarre Adventure: Stone Ocean", price: 12, img: "../img/jojo_stone_ocean.jpg" },
-    { name: "Camiseta de JoJo's Bizarre Adventure: Jotaro Kujo", price: 25, img: "../img/jojo_jotaro_shirt.jpg" },
-    { name: "Camiseta de JoJo's Bizarre Adventure: Dio Brando", price: 25, img: "../img/jojo_dio_shirt.jpg" },
-    { name: "Peluche de JoJo's Bizarre Adventure: Jotaro Kujo", price: 15, img: "../img/jojo_jotaro_plush.jpg" },
-    { name: "Peluche de JoJo's Bizarre Adventure: Dio Brando", price: 15, img: "../img/jojo_dio_plush.jpg" },
-    { name: "Funko Pop de JoJo's Bizarre Adventure: Jotaro Kujo", price: 20, img: "../img/jojo_jotaro_funkopop.png" },
-    { name: "Funko Pop de JoJo's Bizarre Adventure: Dio Brando", price: 20, img: "../img/jojo_dio_funkopop.png" },
-    { name: "Poster de JoJo's Bizarre Adventure", price: 10, img: "../img/jojo_poster.jpg" },
-    { name: "Sudadera de JoJo's Bizarre Adventure", price: 50, img: "../img/jojo_sweater.jpg" },
-    { name: "Taza de JoJo's Bizarre Adventure", price: 15, img: "../img/jojo_mug.jpg" },
+    { name: "Manga de JoJo's Bizarre Adventure: Phantom Blood", price: 50000, img: "../img/jojo_phantom_blood.jpg" },
+    { name: "Manga de JoJo's Bizarre Adventure: Battle Tendency", price: 30000, img: "../img/jojo_battle_tendency.jpg" },
+    { name: "Manga de JoJo's Bizarre Adventure: Stardust Crusaders", price: 15000, img: "../img/jojo_stardust_crusaders.jpg" },
+    { name: "Manga de JoJo's Bizarre Adventure: Diamond is Unbreakable", price: 30000, img: "../img/jojo_diamond_unbreakable.jpg" },
+    { name: "Manga de JoJo's Bizarre Adventure: Steel Ball Run", price: 50000, img: "../img/jojo_steel_ball_run.jpg" },
+    { name: "Manga de JoJo's Bizarre Adventure: Golden Wind", price: 15000, img: "../img/jojo_golden_wind.jpg" },
+    { name: "Manga de JoJo's Bizarre Adventure: Stone Ocean", price: 30000, img: "../img/jojo_stone_ocean.jpg" },
+    { name: "Camiseta de JoJo's Bizarre Adventure: Jotaro Kujo", price: 50000, img: "../img/jojo_jotaro_shirt.jpg" },
+    { name: "Camiseta de JoJo's Bizarre Adventure: Dio Brando", price: 50000, img: "../img/jojo_dio_shirt.jpg" },
+    { name: "Peluche de JoJo's Bizarre Adventure: Jotaro Kujo", price: 15000, img: "../img/jojo_jotaro_plush.jpg" },
+    { name: "Peluche de JoJo's Bizarre Adventure: Dio Brando", price: 15000, img: "../img/jojo_dio_plush.jpg" },
+    { name: "Funko Pop de JoJo's Bizarre Adventure: Jotaro Kujo", price: 30000, img: "../img/jojo_jotaro_funkopop.png" },
+    { name: "Funko Pop de JoJo's Bizarre Adventure: Dio Brando", price: 30000, img: "../img/jojo_dio_funkopop.png" },
+    { name: "Poster de JoJo's Bizarre Adventure", price: 15000, img: "../img/jojo_poster.jpg" },
+    { name: "Sudadera de JoJo's Bizarre Adventure", price: 50000, img: "../img/jojo_sweater.jpg" },
+    { name: "Taza de JoJo's Bizarre Adventure", price: 15000, img: "../img/jojo_mug.jpg" },
   ];
 
   const [visibleProducts, setVisibleProducts] = useState(8);
@@ -66,7 +66,7 @@ const styles = {
   loadMoreButton: {
     margin: '20px auto',
     padding: '10px 20px',
-    backgroundColor: '#6f42c1', // Color violeta
+    backgroundColor: '#6f42c1',
     color: '#fff',
     border: 'none',
     borderRadius: '5px',

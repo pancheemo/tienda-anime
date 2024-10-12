@@ -19,7 +19,7 @@ const NavBar = ({ onToggleCart }) => {
 
 const styles = {
   nav: {
-    backgroundColor: '#6f42c1', // Asegúrate de que el color coincida
+    backgroundColor: '#6f42c1',
     padding: '10px',
     display: 'flex',
     justifyContent: 'space-between',
