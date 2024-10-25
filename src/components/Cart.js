@@ -91,7 +91,7 @@ const styles = {
   },
   purchaseButton: {
     padding: '10px 20px',
-    backgroundColor: '#28a745', // Color verde
+    backgroundColor: '#28a745',
     color: '#fff',
     border: 'none',
     borderRadius: '5px',
@@ -100,7 +100,7 @@ const styles = {
   },
   clearButton: {
     padding: '10px 20px',
-    backgroundColor: '#dc3545', // Color rojo
+    backgroundColor: '#dc3545',
     color: '#fff',
     border: 'none',
     borderRadius: '5px',
@@ -110,7 +110,7 @@ const styles = {
   },
   deleteButton: {
     padding: '5px',
-    backgroundColor: '#ffc107', // Color amarillo
+    backgroundColor: '#ffc107',
     color: '#000',
     border: 'none',
     borderRadius: '3px',

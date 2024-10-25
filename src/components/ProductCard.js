@@ -1,7 +1,21 @@
 import React, { useState } from 'react';
+import ItemCount from './ItemCount'; // Importamos el componente ItemCount
 
-const ProductCard = ({ name, price, img, onAddToCart }) => {
+const ProductCard = ({ name, price, img, stock, onAddToCart }) => {
   const [isHovered, setIsHovered] = useState(false);
+  const [quantity, setQuantity] = useState(1); // Estado para manejar la cantidad seleccionada
+  const totalPrice = price * quantity; // Calculamos el precio total dinámico
+
+  // Función para manejar la cantidad seleccionada desde ItemCount
+  const handleAddToCart = (selectedQuantity) => {
+    setQuantity(selectedQuantity); // Actualizamos la cantidad seleccionada
+    onAddToCart({ name, price, img, quantity: selectedQuantity, totalPrice: price * selectedQuantity });
+  };
+
+  // Función para formatear el precio con separador de miles
+  const formatPrice = (amount) => {
+    return amount.toLocaleString('es-AR', { style: 'currency', currency: 'ARS' });
+  };
 
   return (
     <div
@@ -23,32 +37,34 @@ const ProductCard = ({ name, price, img, onAddToCart }) => {
         />
         {isHovered && (
           <div style={styles.nameOverlay}>
-            <h3>{name}</h3> {/* Mostrar nombre al hacer hover */}
+            <h3 style={styles.name}>{name}</h3> {/* Mostrar nombre al hacer hover */}
           </div>
         )}
         <div style={styles.overlay}>
-          <p>Precio: ${price}</p>
+          <p style={styles.price}>Precio: <span>{formatPrice(price)}</span></p>
+          <p style={styles.totalPrice}>Total: <span>{formatPrice(totalPrice)}</span></p> {/* Mostrar el precio total dinámico */}
         </div>
       </div>
-      <button style={styles.button} onClick={onAddToCart}>
-        Agregar al carrito
-      </button>
+      {/* Usar ItemCount para seleccionar cantidad y agregar al carrito */}
+      <ItemCount stock={stock} initial={1} onAdd={handleAddToCart} />
     </div>
   );
 };
 
+// Estilos
 const styles = {
   card: {
     position: 'relative',
-    border: '1px solid #ccc',
-    borderRadius: '8px',
+    border: '1px solid #ddd',
+    borderRadius: '10px',
     padding: '0',
     textAlign: 'center',
     width: '250px',
-    height: '350px',
-    backgroundColor: '#f9f9f9',
+    height: '450px', // Ajustamos para acomodar el contenido
+    backgroundColor: '#fff',
+    boxShadow: '0 4px 10px rgba(0, 0, 0, 0.1)',
     overflow: 'hidden',
-    transition: 'transform 0.3s ease',
+    transition: 'transform 0.3s ease, box-shadow 0.3s ease',
     margin: '20px',
     display: 'flex',
     flexDirection: 'column',
@@ -57,7 +73,7 @@ const styles = {
   imageContainer: {
     position: 'relative',
     overflow: 'hidden',
-    borderRadius: '8px',
+    borderRadius: '10px 10px 0 0',
     flexGrow: 1,
   },
   image: {
@@ -71,11 +87,11 @@ const styles = {
     bottom: 0,
     left: 0,
     right: 0,
-    backgroundColor: 'rgba(0, 0, 0, 0.7)',
+    backgroundColor: 'rgba(0, 0, 0, 0.8)',
     color: '#fff',
     textAlign: 'center',
-    padding: '10px',
-    opacity: 0,
+    padding: '15px',
+    opacity: 1,
     transition: 'opacity 0.3s ease',
   },
   nameOverlay: {
@@ -90,18 +106,24 @@ const styles = {
     opacity: 1,
     transition: 'opacity 0.3s ease',
   },
-  button: {
-    backgroundColor: '#6f42c1',
-    color: '#fff',
-    padding: '10px',
-    border: 'none',
-    borderRadius: '5px',
-    cursor: 'pointer',
-    marginTop: '10px',
-    width: '100%',
+  name: {
+    fontSize: '18px',
+    margin: '0',
+    padding: '5px',
+  },
+  price: {
+    margin: '5px 0',
+    fontSize: '18px',
+    fontWeight: 'bold',
+  },
+  totalPrice: {
+    margin: '5px 0',
+    fontSize: '16px',
+    color: '#ffcc00', // Color dorado para el precio total
   },
   cardHover: {
     transform: 'scale(1.05)',
+    boxShadow: '0 6px 15px rgba(0, 0, 0, 0.2)',
   },
   imageHover: {
     transform: 'scale(1.1)',
