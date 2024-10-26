@@ -1,18 +1,22 @@
 import React, { useState } from 'react';
-import ItemCount from './ItemCount'; // Importamos el componente ItemCount
+import ItemCount from './ItemCount';
 
 const ProductCard = ({ name, price, img, stock, onAddToCart }) => {
   const [isHovered, setIsHovered] = useState(false);
-  const [quantity, setQuantity] = useState(1); // Estado para manejar la cantidad seleccionada
-  const totalPrice = price * quantity; // Calculamos el precio total dinámico
+  const [quantity, setQuantity] = useState(1);
+  const totalPrice = price * quantity;
 
-  // Función para manejar la cantidad seleccionada desde ItemCount
   const handleAddToCart = (selectedQuantity) => {
-    setQuantity(selectedQuantity); // Actualizamos la cantidad seleccionada
-    onAddToCart({ name, price, img, quantity: selectedQuantity, totalPrice: price * selectedQuantity });
+    setQuantity(selectedQuantity);
+    onAddToCart({
+      name,
+      price,
+      img,
+      quantity: selectedQuantity,
+      totalPrice: price * selectedQuantity,
+    });
   };
 
-  // Función para formatear el precio con separador de miles
   const formatPrice = (amount) => {
     return amount.toLocaleString('es-AR', { style: 'currency', currency: 'ARS' });
   };
@@ -37,21 +41,19 @@ const ProductCard = ({ name, price, img, stock, onAddToCart }) => {
         />
         {isHovered && (
           <div style={styles.nameOverlay}>
-            <h3 style={styles.name}>{name}</h3> {/* Mostrar nombre al hacer hover */}
+            <h3 style={styles.name}>{name}</h3>
           </div>
         )}
         <div style={styles.overlay}>
           <p style={styles.price}>Precio: <span>{formatPrice(price)}</span></p>
-          <p style={styles.totalPrice}>Total: <span>{formatPrice(totalPrice)}</span></p> {/* Mostrar el precio total dinámico */}
+          <p style={styles.totalPrice}>Total: <span>{formatPrice(totalPrice)}</span></p>
         </div>
       </div>
-      {/* Usar ItemCount para seleccionar cantidad y agregar al carrito */}
       <ItemCount stock={stock} initial={1} onAdd={handleAddToCart} />
     </div>
   );
 };
 
-// Estilos
 const styles = {
   card: {
     position: 'relative',
@@ -60,7 +62,7 @@ const styles = {
     padding: '0',
     textAlign: 'center',
     width: '250px',
-    height: '450px', // Ajustamos para acomodar el contenido
+    height: '450px',
     backgroundColor: '#fff',
     boxShadow: '0 4px 10px rgba(0, 0, 0, 0.1)',
     overflow: 'hidden',
@@ -119,7 +121,7 @@ const styles = {
   totalPrice: {
     margin: '5px 0',
     fontSize: '16px',
-    color: '#ffcc00', // Color dorado para el precio total
+    color: '#ffcc00',
   },
   cardHover: {
     transform: 'scale(1.05)',

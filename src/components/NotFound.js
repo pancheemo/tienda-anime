@@ -10,7 +10,6 @@ const NotFound = () => {
   );
 };
 
-// Estilos
 const styles = {
   container: {
     textAlign: 'center',

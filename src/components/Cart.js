@@ -3,30 +3,20 @@ import React, { useEffect, useState } from 'react';
 const Cart = ({ cartItems, setCartItems }) => {
   const [purchaseMessage, setPurchaseMessage] = useState('');
 
-  // Obtener el carrito desde localStorage
-  const obtenerCarrito = () => {
-    let carrito = localStorage.getItem('carrito');
-    return carrito ? JSON.parse(carrito) : [];
-  };
+  const obtenerCarrito = () => JSON.parse(localStorage.getItem('carrito')) || [];
+  const guardarCarrito = (carrito) => localStorage.setItem('carrito', JSON.stringify(carrito));
 
-  // Guardar el carrito en localStorage
-  const guardarCarrito = (carrito) => {
-    localStorage.setItem('carrito', JSON.stringify(carrito));
-  };
-
-  // Cargar los productos del carrito al iniciar
   useEffect(() => {
-    const carrito = obtenerCarrito();
-    setCartItems(carrito);
-  }, []);
+    setCartItems(obtenerCarrito());
+  }, [setCartItems]);
 
-  // Función para manejar la compra
   const handlePurchase = () => {
-    setPurchaseMessage('¡Compra completada!');
-    vaciarCarrito(); // Vacía el carrito al finalizar la compra
+    setPurchaseMessage('¡Compra realizada!');
+    setTimeout(() => {
+      vaciarCarrito();
+    }, 2000);
   };
 
-  // Función para eliminar un producto del carrito
   const eliminarProducto = (index) => {
     const nuevoCarrito = cartItems.filter((_, i) => i !== index);
     setCartItems(nuevoCarrito);
@@ -34,25 +24,21 @@ const Cart = ({ cartItems, setCartItems }) => {
     mostrarMensaje('Producto eliminado del carrito.');
   };
 
-  // Vaciar el carrito completamente
   const vaciarCarrito = () => {
     setCartItems([]);
     guardarCarrito([]);
     mostrarMensaje('El carrito ha sido vaciado.');
   };
 
-  // Mostrar mensajes al usuario
   const mostrarMensaje = (mensaje) => {
     setPurchaseMessage(mensaje);
-    setTimeout(() => {
-      setPurchaseMessage('');
-    }, 3000);
+    setTimeout(() => setPurchaseMessage(''), 3000);
   };
 
   return (
     <div style={styles.cartContainer}>
       <h2>Carrito de Compras</h2>
-      {purchaseMessage && <p>{purchaseMessage}</p>}
+      {purchaseMessage && <div style={styles.message}>{purchaseMessage}</div>}
       {cartItems.length === 0 ? (
         <p>El carrito está vacío.</p>
       ) : (
@@ -81,13 +67,21 @@ const Cart = ({ cartItems, setCartItems }) => {
   );
 };
 
-// Estilos
 const styles = {
   cartContainer: {
     padding: '20px',
     border: '1px solid #ccc',
     borderRadius: '5px',
     margin: '20px 0',
+  },
+  message: {
+    backgroundColor: '#28a745',
+    color: '#fff',
+    padding: '10px',
+    borderRadius: '5px',
+    margin: '10px 0',
+    textAlign: 'center',
+    animation: 'fadeIn 0.5s',
   },
   purchaseButton: {
     padding: '10px 20px',
@@ -118,5 +112,14 @@ const styles = {
     marginLeft: '10px',
   },
 };
+
+const stylesAnimation = `
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+`;
+
+document.head.insertAdjacentHTML('beforeend', `<style>${stylesAnimation}</style>`);
 
 export default Cart;
