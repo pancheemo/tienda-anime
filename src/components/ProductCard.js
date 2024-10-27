@@ -1,20 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ItemCount from './ItemCount';
 
-const ProductCard = ({ name, price, img, stock, onAddToCart }) => {
+const ProductCard = ({ id, name, price, img, stock, onAddToCart }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [quantity, setQuantity] = useState(1);
-  const totalPrice = price * quantity;
+  const [totalPrice, setTotalPrice] = useState(price);
 
-  const handleAddToCart = (selectedQuantity) => {
-    setQuantity(selectedQuantity);
-    onAddToCart({
-      name,
-      price,
-      img,
-      quantity: selectedQuantity,
-      totalPrice: price * selectedQuantity,
-    });
+
+  useEffect(() => {
+    setTotalPrice(price * quantity);
+  }, [quantity, price]);
+
+  const handleAddToCart = (qty) => {
+    if (qty <= stock && qty > 0) {
+      const productToAdd = { id, name, price, quantity: qty };
+      onAddToCart(productToAdd);
+    } else {
+      alert('No hay suficiente stock disponible o cantidad no válida.');
+    }
+  };
+
+  const handleQuantityChange = (qty) => {
+    setQuantity(qty);
   };
 
   const formatPrice = (amount) => {
@@ -45,11 +52,21 @@ const ProductCard = ({ name, price, img, stock, onAddToCart }) => {
           </div>
         )}
         <div style={styles.overlay}>
-          <p style={styles.price}>Precio: <span>{formatPrice(price)}</span></p>
-          <p style={styles.totalPrice}>Total: <span>{formatPrice(totalPrice)}</span></p>
+          <p style={styles.price}>
+            Precio: <span>{formatPrice(price)}</span>
+          </p>
+          <p style={styles.totalPrice}>
+            Total: <span>{formatPrice(totalPrice)}</span>
+          </p>
         </div>
       </div>
-      <ItemCount stock={stock} initial={1} onAdd={handleAddToCart} />
+
+      <ItemCount 
+        stock={stock} 
+        initial={1} 
+        onAdd={handleAddToCart} 
+        onQuantityChange={handleQuantityChange} 
+      />
     </div>
   );
 };

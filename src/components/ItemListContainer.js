@@ -3,14 +3,12 @@ import { useParams } from 'react-router-dom';
 import ProductCard from './ProductCard';
 import products from './products';
 
-const LoadingSpinner = () => {
-  return (
-    <div style={combinedStyles.loader}>
-      <p>Cargando...</p>
-      <div style={combinedStyles.spinner}></div>
-    </div>
-  );
-};
+const LoadingSpinner = () => (
+  <div style={combinedStyles.loader}>
+    <p>Cargando...</p>
+    <div style={combinedStyles.spinner}></div>
+  </div>
+);
 
 const combinedStyles = {
   loader: {
@@ -39,15 +37,6 @@ const combinedStyles = {
     gap: '20px',
     justifyItems: 'center',
   },
-  loadMoreButton: {
-    margin: '20px auto',
-    padding: '10px 20px',
-    backgroundColor: '#6f42c1',
-    color: '#fff',
-    border: 'none',
-    borderRadius: '5px',
-    cursor: 'pointer',
-  },
 };
 
 const keyframes = `
@@ -67,9 +56,9 @@ const ItemListContainer = ({ onAddToCart }) => {
   useEffect(() => {
     const fetchProducts = async () => {
       setLoading(true);
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      await new Promise((resolve) => setTimeout(resolve, 2000));
       const filtered = category
-        ? products.filter(product => product.category === category)
+        ? products.filter((product) => product.category === category)
         : products;
       setFilteredProducts(filtered);
       setLoading(false);
@@ -86,9 +75,10 @@ const ItemListContainer = ({ onAddToCart }) => {
         <div>
           <h2 style={{ marginBottom: '20px' }}>Productos</h2>
           <div style={combinedStyles.productList}>
-            {filteredProducts.map(product => (
+            {filteredProducts.map((product) => (
               <ProductCard
                 key={product.id}
+                id={product.id}
                 name={product.name}
                 price={product.price}
                 img={product.img}

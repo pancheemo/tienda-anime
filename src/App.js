@@ -7,24 +7,19 @@ import Footer from './components/Footer';
 import Cart from './components/Cart';
 import ItemDetailContainer from './components/ItemDetailContainer';
 import NotFound from './components/NotFound';
-import LoadingSpinner from './components/LoadingSpinner'; // Asegúrate de tener este componente
+import LoadingSpinner from './components/LoadingSpinner'; 
 
 const App = () => {
   const [cartItems, setCartItems] = useState([]);
   const [showCart, setShowCart] = useState(false);
-  const [loading, setLoading] = useState(true); // Estado de carga
+  const [loading, setLoading] = useState(true);
 
-  // Recuperar carrito desde localStorage al montar el componente
   useEffect(() => {
     const savedCart = JSON.parse(localStorage.getItem('carrito')) || [];
     setCartItems(savedCart);
-    
-    // Simular tiempo de carga
-    const timer = setTimeout(() => {
-      setLoading(false); // Cambia el estado de carga después de 2 segundos
-    }, 2000); // Ajusta el tiempo según sea necesario
 
-    return () => clearTimeout(timer); // Limpiar el timeout al desmontar
+    const timer = setTimeout(() => setLoading(false), 2000);
+    return () => clearTimeout(timer);
   }, []);
 
   const addToCart = (product) => {
@@ -41,39 +36,42 @@ const App = () => {
     });
   };
 
-  const toggleCart = () => {
-    setShowCart((prev) => !prev);
-  };
+  const toggleCart = () => setShowCart((prev) => !prev);
 
   return (
     <Router>
       <Header />
       <NavBar onToggleCart={toggleCart} />
-      {showCart && <Cart cartItems={cartItems} setCartItems={setCartItems} onClose={() => setShowCart(false)} />}
-      
-      {loading ? ( // Si está cargando, muestra el spinner
+      {showCart && (
+        <Cart 
+          cartItems={cartItems} 
+          setCartItems={setCartItems} 
+          onClose={() => setShowCart(false)} 
+        />
+      )}
+
+      {loading ? (
         <LoadingSpinner />
       ) : (
         <main style={styles.main}>
           <Routes>
-            <Route path="/" element={<ItemListContainer greeting="¡Bienvenido a la Tienda de Hajime!" onAddToCart={addToCart} />} />
-            <Route path="/category/:categoryId" element={<ItemListContainer onAddToCart={addToCart} />} />
+            <Route path="/" element={<ItemListContainer onAddToCart={addToCart} />} />
+            <Route path="/category/:category" element={<ItemListContainer onAddToCart={addToCart} />} />
             <Route path="/product/:productId" element={<ItemDetailContainer onAddToCart={addToCart} />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
       )}
-      
+
       <Footer />
     </Router>
   );
 };
 
-// Estilos básicos
 const styles = {
   main: {
     padding: '20px',
-    minHeight: 'calc(100vh - 200px)', // Ajusta la altura para el espacio entre Header y Footer
+    minHeight: 'calc(100vh - 200px)',
   },
 };
 

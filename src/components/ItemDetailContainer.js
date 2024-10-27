@@ -11,7 +11,6 @@ const ItemDetailContainer = ({ onAddToCart }) => {
   useEffect(() => {
     const fetchProductDetails = async () => {
       const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
-      
       await delay(1000);
 
       const productDetails = products.find(item => item.id === parseInt(productId));
@@ -36,9 +35,11 @@ const ItemDetailContainer = ({ onAddToCart }) => {
       <h2>{product.name}</h2>
       <p>Precio: ${product.price}</p>
       <ItemCount 
-        stock={10}
+        stock={product.stock} 
         onAdd={(quantity) => {
-          onAddToCart({ ...product, quantity });
+          if (quantity <= product.stock) {
+            onAddToCart({ ...product, quantity });
+          }
         }}
       />
       <p>Categoría: {product.category}</p>

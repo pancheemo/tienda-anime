@@ -1,28 +1,34 @@
-import React, { useState } from 'react'; 
+import React, { useState, useEffect } from 'react';
 
-const ItemCount = ({ stock, initial, onAdd }) => {
+const ItemCount = ({ stock, initial, onAdd, cartQuantity = 0, onQuantityChange }) => {
   const [count, setCount] = useState(initial);
-  const [outOfStock, setOutOfStock] = useState(false); // Estado para manejar el mensaje de sin stock
+  const [remainingStock, setRemainingStock] = useState(stock - cartQuantity);
+
+  useEffect(() => {
+    setRemainingStock(stock - cartQuantity);
+  }, [cartQuantity, stock]);
+
+  useEffect(() => {
+    onQuantityChange(count);
+  }, [count, onQuantityChange]);
 
   const increase = () => {
-    if (count < stock) {
+    if (count < remainingStock) {
       setCount(count + 1);
-      setOutOfStock(false); // Reiniciar el mensaje de sin stock
     }
   };
-  
+
   const decrease = () => {
     if (count > 1) {
       setCount(count - 1);
     }
   };
-  
+
   const addToCart = () => {
-    if (count <= stock) {
+    if (count <= remainingStock) {
       onAdd(count);
-      if (count === stock) {
-        setOutOfStock(true); // Mostrar mensaje de sin stock si se alcanza el máximo
-      }
+      setRemainingStock(remainingStock - count);
+      setCount(1);
     }
   };
 
@@ -31,23 +37,28 @@ const ItemCount = ({ stock, initial, onAdd }) => {
       <div style={styles.counter}>
         <button onClick={decrease} style={styles.button}>-</button>
         <span style={styles.count}>{count}</span>
-        <button onClick={increase} style={styles.button}>+</button>
+        <button 
+          onClick={increase} 
+          style={styles.button} 
+          disabled={count >= remainingStock}
+        >
+          +
+        </button>
       </div>
       <button 
         onClick={addToCart} 
-        style={{ ...styles.addButton, opacity: stock ? 1 : 0.5 }} 
-        disabled={stock === 0}
+        style={{ ...styles.addButton, opacity: remainingStock ? 1 : 0.5 }} 
+        disabled={remainingStock === 0}
       >
-        {stock > 0 ? 'Agregar al carrito' : 'Sin stock'}
+        {remainingStock > 0 ? 'Agregar al carrito' : 'Sin stock'}
       </button>
-      {outOfStock && (
-        <p style={styles.outOfStockMessage}>Sin stock</p> // Mensaje de sin stock
+      {remainingStock === 0 && (
+        <p style={styles.outOfStockMessage}>Sin stock</p>
       )}
     </div>
   );
 };
 
-// Estilos
 const styles = {
   container: {
     display: 'flex',
@@ -87,7 +98,7 @@ const styles = {
     transition: 'opacity 0.3s',
   },
   outOfStockMessage: {
-    color: 'red', // Color rojo para el mensaje de sin stock
+    color: 'red',
     marginTop: '10px',
   },
 };

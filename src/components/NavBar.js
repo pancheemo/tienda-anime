@@ -1,6 +1,5 @@
-// components/NavBar.js
 import React from 'react';
-import { NavLink } from 'react-router-dom'; // Importamos NavLink para navegación
+import { NavLink } from 'react-router-dom';
 import CartWidget from './CartWidget';
 
 const NavBar = ({ onToggleCart }) => {
